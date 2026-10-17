@@ -43,8 +43,10 @@ async function chat(model: string, system: string, user: Content, timeoutMs = 45
       const status = res.status;
       if (status === 401 || status === 403) throw new ApiError(502, "AI_AUTH", "The AI service rejected the configured credentials.");
       if (status === 429) throw new ApiError(503, "AI_BUSY", "The AI service is rate-limited right now. Please try again shortly.");
-      if (status === 404 || status === 400) throw new ApiError(502, "AI_MODEL", "The configured AI model is unavailable for this request type.");
-      throw new ApiError(502, "AI_ERROR", "The AI service returned an error. Please try again or continue manually.");
+      if (status === 402) throw new ApiError(503, "AI_CREDITS", "The Hugging Face account has used up its included inference credits. AI assistance is unavailable until credits are added.");
+      console.error("[ai] provider error status", status);
+      if (status === 404 || status === 400 || status === 422) throw new ApiError(502, "AI_MODEL", `The configured AI model rejected the request (HTTP ${status}).`);
+      throw new ApiError(502, "AI_ERROR", `The AI service returned an error (HTTP ${status}). Please try again or continue manually.`);
     }
     const data = (await res.json()) as { choices?: { message?: { content?: string } }[] };
     return data.choices?.[0]?.message?.content ?? "";

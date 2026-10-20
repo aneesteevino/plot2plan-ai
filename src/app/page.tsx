@@ -23,7 +23,7 @@ const steps = [
 
 const features = [
   { icon: Layers, title: "Geometry-driven layouts", body: "Plans come from a deterministic zoning engine, not an image generator. Every room has a real position and size, and is checked for overlaps, access and light." },
-  { icon: ScanLine, title: "AI-assisted, never AI-trusted", body: "Optional Hugging Face vision and text models read visible dimensions and describe requirements. You confirm every value before it is used." },
+  { icon: ScanLine, title: "AI-assisted, never AI-trusted", body: "Optional open AI models (via OpenRouter or Hugging Face) read visible dimensions and describe requirements. You confirm every value before it is used." },
   { icon: ShieldAlert, title: "Honest about limits", body: "Missing setbacks, coverage or height limits are marked as pending, never invented. If the rooms do not fit, you are told why and given options." },
   { icon: FileText, title: "Professional exports", body: "Vector PDF report with a scale bar, plus SVG and PNG plans and a JSON export so you can reproduce the project." },
 ];

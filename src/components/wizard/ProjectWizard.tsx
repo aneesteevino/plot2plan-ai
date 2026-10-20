@@ -349,7 +349,7 @@ function RequirementsStep({ r, setReq, status }: { r: Requirements; setReq: (p: 
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
-  const [sugg, setSugg] = useState<{ suggestions: Partial<Requirements>; summary: string } | null>(null);
+  const [sugg, setSugg] = useState<{ suggestions: Partial<Requirements>; summary: string; source?: string } | null>(null);
 
   async function extract() {
     setBusy(true);
@@ -381,12 +381,13 @@ function RequirementsStep({ r, setReq, status }: { r: Requirements; setReq: (p: 
             <Button variant="secondary" onClick={extract} disabled={busy || text.trim().length < 10}>
               {busy ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : <Sparkles className="h-4 w-4" aria-hidden />} Suggest form values
             </Button>
-            <span className="text-xs text-muted">Sent to Hugging Face ({status.ai.textModel}). You review the suggestions before anything changes.</span>
+            <span className="text-xs text-muted">Sent to the AI provider ({status.ai.providers?.join(", ")}). You review the suggestions before anything changes.</span>
           </div>
           {err && <p className="mt-2 text-sm text-err">{err}</p>}
           {sugg && (
             <div className="mt-3 rounded-md border border-line bg-white p-3 text-sm">
               {sugg.summary && <p className="mb-2 text-ink-2">“{sugg.summary}”</p>}
+              {sugg.source && <p className="mb-2 text-[11px] text-muted">Suggested by {sugg.source}</p>}
               {Object.keys(sugg.suggestions).length === 0 ? (
                 <p className="text-muted">No clear requirements were found in the text.</p>
               ) : (

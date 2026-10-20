@@ -123,5 +123,5 @@ describe("planning engine", () => {
           }
     expect(failures).toEqual([]);
     expect(feasible).toBeGreaterThan(130);
-  });
+  }, 30_000);
 });

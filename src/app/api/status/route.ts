@@ -1,5 +1,5 @@
 import { getDb, isDbConfigured } from "@/lib/server/db";
-import { aiConfig } from "@/lib/server/hf";
+import { aiConfig } from "@/lib/server/ai";
 import { connection } from "next/server";
 import { ok } from "@/lib/server/http";
 
@@ -29,5 +29,5 @@ export async function GET() {
     }
   }
   const ai = aiConfig();
-  return ok({ db, ...(dbError ? { dbError } : {}), ai: { configured: ai.configured, visionModel: ai.visionModel, textModel: ai.textModel } });
+  return ok({ db, ...(dbError ? { dbError } : {}), ai: { configured: ai.configured, providers: ai.providers, visionModel: ai.visionModel, textModel: ai.textModel } });
 }

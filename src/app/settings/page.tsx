@@ -49,14 +49,14 @@ export default function SettingsPage() {
           <Card className="p-5">
             <div className="flex items-center justify-between gap-3">
               <h2 className="flex items-center gap-2 font-semibold">
-                <Cpu className="h-4 w-4" /> AI assistance (Hugging Face)
+                <Cpu className="h-4 w-4" /> AI assistance
               </h2>
               <Badge tone={status.ai.configured ? "ok" : "warn"}>{status.ai.configured ? "Configured" : "Not configured"}</Badge>
             </div>
             <p className="mt-2 text-sm text-ink-2">
               {status.ai.configured
-                ? `Image reading uses ${status.ai.visionModel}; requirement extraction uses ${status.ai.textModel}. AI output is always validated and shown to you for confirmation before it is used.`
-                : "No Hugging Face token is set on the server. The planning engine, reports and exports work fully without AI. AI only assists with reading images and text."}
+                ? `Providers: ${status.ai.providers?.join(", ") ?? "—"}. Image reading tries ${status.ai.visionModel}; requirement extraction tries ${status.ai.textModel}, falling back to other free models if one is busy. AI output is always validated and shown to you for confirmation before it is used.`
+                : "No AI provider key is set on the server. The planning engine, reports and exports work fully without AI. AI only assists with reading images and text."}
             </p>
           </Card>
           <Card className="p-5">
@@ -65,7 +65,7 @@ export default function SettingsPage() {
             </h2>
             <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink-2">
               <li>Plot images are stored only in this browser (IndexedDB). They are never saved to the Plot2Plan database.</li>
-              <li>When you ask for AI image reading, a compressed copy is sent to Hugging Face for that single request only.</li>
+              <li>When you ask for AI image reading, a compressed copy is sent to the configured AI provider for that single request only.</li>
               <li>PDF, SVG and PNG files are generated in your browser. Only export metadata (file name, type, version) is recorded when cloud storage is enabled.</li>
               <li>Deleting a project removes its versions and export records from the database, and its image from this browser.</li>
               <li>No account, name or email is collected.</li>

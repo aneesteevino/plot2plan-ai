@@ -1,4 +1,4 @@
-import { analyzePlotImage } from "@/lib/server/hf";
+import { analyzePlotImage } from "@/lib/server/ai";
 import { ApiError, getOwnerId, handle, ok, rateLimit } from "@/lib/server/http";
 
 export const maxDuration = 60;

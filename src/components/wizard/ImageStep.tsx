@@ -21,6 +21,7 @@ interface Analysis {
   measurements: Measurement[];
   visibleText: string[];
   notes: string;
+  source?: string;
 }
 
 const KINDS: { value: Kind; label: string }[] = [
@@ -167,7 +168,7 @@ export function ImageStep({
         <Card className="p-4">
           {!aiReady ? (
             <p className="text-sm text-ink-2">
-              AI image reading is not configured on this deployment (no Hugging Face token). Enter the measurements manually in the next step. Everything else works without AI.
+              AI image reading is not configured on this deployment. Enter the measurements manually in the next step. Everything else works without AI.
             </p>
           ) : !file ? (
             <p className="text-sm text-ink-2">Upload a plot map, survey or sketch with written dimensions to try AI-assisted reading.</p>
@@ -178,7 +179,7 @@ export function ImageStep({
                 {busy ? "Reading image…" : "Read visible measurements"}
               </Button>
               <p className="mt-2 text-xs text-muted">
-                A compressed copy of the image is sent to Hugging Face ({status?.ai.visionModel}) for this one request and is not stored by Plot2Plan.
+                A compressed copy of the image is sent to the AI provider ({status?.ai.providers?.join(", ")}) for this one request and is not stored by Plot2Plan. Free models can be busy; if so, try again in a minute.
               </p>
             </>
           )}
@@ -235,6 +236,7 @@ export function ImageStep({
                 </table>
               )}
               {analysis.notes && <p className="text-xs text-ink-2">Model notes: {analysis.notes}</p>}
+              {analysis.source && <p className="text-[11px] text-muted">Read by {analysis.source}</p>}
               <p className="rounded-md bg-warn-soft px-2.5 py-2 text-xs text-warn">
                 AI readings are suggestions. Check each value against your documents. Applied values still need your confirmation in the Dimensions step.
               </p>

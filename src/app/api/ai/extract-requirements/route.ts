@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { extractRequirements } from "@/lib/server/hf";
+import { extractRequirements } from "@/lib/server/ai";
 import { getOwnerId, handle, ok, rateLimit, readJson } from "@/lib/server/http";
 
 export const maxDuration = 60;

@@ -17,7 +17,7 @@ validation checks and a professional PDF planning report.
 - **Interactive SVG plan viewer** with zoom, pan, fit and reset, keyboard controls, a floor switcher, clickable rooms, and a room editor that re-validates (overlaps, access, light) and saves edits as a new version.
 - **Exports**: a vector PDF report (cover, sections 2–20, A3 plan sheets at a **standard scale stated only because the geometry is drawn at exactly that ratio**, a scale bar, page numbers and a disclaimer on every page), SVG (1 unit = 1 ft), PNG and JSON.
 - **Report** that tags every row as *User-provided*, *Calculated*, *Design suggestion*, *Assumption* or *Needs professional confirmation*.
-- **Optional AI (Hugging Face Inference Providers)**: reading visible measurements from plot images, and turning free text into form suggestions. All AI output is schema-validated and shown to you for confirmation, and the app works fully without AI.
+- **Optional AI with a provider chain**: OpenRouter **free** models first (Gemma 4, Nemotron VL, …), then Hugging Face, with automatic fallback when a model is busy, unavailable or out of credits. Used for reading visible measurements from plot images, and turning free text into form suggestions. All AI output is schema-validated and shown to you for confirmation, and the app works fully without AI.
 
 ### Supported configurations (MVP)
 
@@ -75,6 +75,8 @@ npm run build
 | --- | --- | --- |
 | `MONGODB_URI` | No | MongoDB Atlas connection string (server-only). Without it, the app uses browser storage. |
 | `MONGODB_DB` | No | Database name, default `plot2plan`. |
+| `OPENROUTER_API_KEY` | No | OpenRouter key (server-only). Tried first; only `:free` models are used by default. |
+| `OPENROUTER_VISION_MODELS` / `OPENROUTER_TEXT_MODELS` | No | Comma-separated model lists, tried in order. Free models change over time; check openrouter.ai/models?q=:free. |
 | `HF_TOKEN` | No | Hugging Face token with Inference Providers permission (server-only). Without it, AI features are disabled. |
 | `HF_VISION_MODEL` | No | Default `Qwen/Qwen3.8-27B` (multimodal; listed with live inference providers when this was built). |
 | `HF_TEXT_MODEL` | No | Default `Qwen/Qwen3.8-27B`. |

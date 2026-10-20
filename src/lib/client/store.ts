@@ -9,7 +9,7 @@ export type StorageMode = "cloud" | "local";
 
 export interface Status {
   db: "connected" | "not-configured" | "error";
-  ai: { configured: boolean; visionModel: string; textModel: string };
+  ai: { configured: boolean; providers?: string[]; visionModel: string; textModel: string };
 }
 
 let statusPromise: Promise<Status> | null = null;
